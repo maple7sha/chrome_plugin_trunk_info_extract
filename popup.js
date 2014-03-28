@@ -19,7 +19,7 @@ var urlG = {
         tablink = tabs[0].url;
 
         var addr_array = tablink.split("/");
-        var siteID = addr_array[addr_array.length-1];
+        var siteID = addr_array[5];
         var request = new XMLHttpRequest();
         var url = "https://trunk.tufts.edu/direct/site/" + siteID + "/memberships";
         request.open("GET", url, false);
