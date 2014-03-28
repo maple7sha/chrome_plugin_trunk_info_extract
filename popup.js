@@ -35,34 +35,31 @@ var urlG = {
           }
         }
         var obj = JSON.parse(request.responseText);
+        var textnode = "";
         //var node = document.createElement("div");
         for (var i = 0; i < obj.membership_collection.length; i++){
           // if no such div id exists, creat and append to body
           var role = obj.membership_collection[i].memberRole;
           if(!document.getElementById(role)){
+            //document.body.(document.createElement("br"));
             // create header to start the category display 
-            var hdr = document.createElement("h5");
-            hdr.appendChild(document.createTextNode(role + ":"));
+            var hdr = document.createElement("div");
+            hdr.appendChild(document.createTextNode("* " + role + "s *"));
             // create new role node
             var newrolenode = document.createElement("div");
             newrolenode.setAttribute("id", role);
             // append header to the role node
             newrolenode.appendChild(hdr);
             // append role node to body
+            document.body.insertBefore(document.createElement("br"), document.body.firstChild);
             document.body.insertBefore(newrolenode, document.body.firstChild);
           }
           // add the utln to the current page under the right div id defined according to their roles 
           var node = document.createElement("div");   
-          var textnode = document.createTextNode(obj.membership_collection[i].userDisplayId);// + " Email: " + obj.membership_collection[i].userEmail);
+          textnode = document.createTextNode(obj.membership_collection[i].userDisplayId);// + " Email: " + obj.membership_collection[i].userEmail);
           node.appendChild(textnode);
           document.getElementById(obj.membership_collection[i].memberRole).appendChild(node);
-          /*if(obj.membership_collection[i].memberRole == "Organizer"){
-            document.getElementById('Organizer').appendChild(node);
-          }else if(obj.membership_collection[i].memberRole == "Participant"){
-            document.getElementById('Participant').appendChild(node);
-          }
-          //document.body.appendChild(node);
-          */
+
         }
     })
   }
