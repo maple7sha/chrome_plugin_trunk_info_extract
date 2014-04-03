@@ -20,8 +20,9 @@ var urlG = {
 
         var addr_array = tablink.split("/");
         var siteID = addr_array[5];
+        var hostUrl = addr_array[2];
         var request = new XMLHttpRequest();
-        var url = "https://trunk.tufts.edu/direct/site/" + siteID + "/memberships";
+        var url = "https://" + hostUrl + "/direct/site/" + siteID + "/memberships";
         request.open("GET", url, false);
         request.send();
         request.onreadystatechange = function(){
@@ -44,7 +45,7 @@ var urlG = {
             //document.body.(document.createElement("br"));
             // create header to start the category display 
             var hdr = document.createElement("div");
-            hdr.appendChild(document.createTextNode("* " + role + "s *"));
+            hdr.appendChild(document.createTextNode("---" + role + "s--"));
             // create new role node
             var newrolenode = document.createElement("div");
             newrolenode.setAttribute("id", role);
