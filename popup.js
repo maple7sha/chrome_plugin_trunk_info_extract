@@ -73,9 +73,11 @@
 
         tablink = tabs[0].url;
         var addr_array = tablink.split("/");
-        var siteID = addr_array[5];
+        var siteID = addr_array[addr_array.length - 1];  // assume that by convention site ID is the last item in the url 
         var hostUrl = addr_array[2];
         var request = new XMLHttpRequest();
+        //var request = new XMLHttpRequest();
+        //var request = new XMLHttpRequest();
         var sakai = true;
 
         // Check if this is a Sakai Site
@@ -86,20 +88,16 @@
           if (request.readyState == 4) {
             if (request.status == 200 || request.status == 0) {
             }else if(request.status == 403){
+              document.getElementById("error").appendChild(document.createTextNode("Please Login and make sure you have Admin privilege"));
             }else if(request.status == 404 || true){
-              //alert("Either this is not a Sakai Site or Site ID is not present : (");
-              document.getElementById("error").appendChild(document.createTextNode("This is not a Sakai Site"));
-              return false; 
+              document.getElementById("error").appendChild(document.createTextNode("Requested page not found"));
+              sakai = false;
             }
           }
         }
 
-        //if(!request.responseText.test("Represents a site (a collection of users and tools) in the Sakai system")){
-        //  document.getElementById("error").appendChild(document.createTextNode("This is not a Sakai Site"));
-
-        //}
-          //var obj = JSON.parse(request.responseText);
-        if(siteID != null){
+        //var obj = JSON.parse(request.responseText);
+        if(siteID != null && sakai == true){
           // Get all current members of the site 
           var url_members = "https://" + hostUrl + "/direct/site/" + siteID + "/memberships";
           request.open("GET", url_members, false);
@@ -112,7 +110,7 @@
                   alert("Please Login and make sure you have Admin privilege");
                   return false;
               }else if(request.status == 404){
-                  alert("Request not found");
+                  alert("Requested data not found");
               }
             }
           }
@@ -131,7 +129,7 @@
                   alert("Please Login and make sure you have Admin privilege");
                   return false;
               }else if(request.status == 404){
-                  alert("Request not found");
+                  alert("Requested data not found");
               }
             }
           }
