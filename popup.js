@@ -76,8 +76,6 @@
         var siteID = addr_array[addr_array.length - 1];  // assume that by convention site ID is the last item in the url 
         var hostUrl = addr_array[2];
         var request = new XMLHttpRequest();
-        //var request = new XMLHttpRequest();
-        //var request = new XMLHttpRequest();
         var sakai = true;
 
         // Check if this is a Sakai Site
